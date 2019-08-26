@@ -49,6 +49,7 @@ coverage.xml
 
 # Translations
 *.mo
+episode_env/
 *.pot
 
 # Django stuff:
@@ -67,7 +68,8 @@ instance/
 docs/_build/
 
 # PyBuilder
-target/
+
+episode_env/target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
