@@ -1,3 +1,8 @@
-<h1>
-Hello world from index .html
-</h1>
+<html>
+<body>
+<form method="POST" action = "{% url 'show' %}">
+    {% csrf_token %}
+    <input type="submit" name="s" value="ss">
+</form>
+</body>
+</html>

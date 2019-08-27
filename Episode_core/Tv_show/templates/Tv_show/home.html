@@ -1,0 +1,12 @@
+{% extends "header.html" %}
+
+{% block content %}
+{% for show in shows %}
+{{show.id}}
+{{show.show_name}}
+{{show.Banner}}
+
+        <img src={{show.Banner}}>
+
+{% endfor %}
+{% endblock %}

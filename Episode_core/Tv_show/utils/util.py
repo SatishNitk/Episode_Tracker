@@ -7,6 +7,8 @@ else:
     from urllib.parse import quote
 
 
+# Class Show_Info():
+
 def get_new_token():
     apikey = '47UG60SA6LRXE233'
     username = 'satishkrgu95hbv'
@@ -18,8 +20,17 @@ def get_new_token():
     return r.json()['token']
 
 
+def get_token():
+    try :
+        new_token = get_new_token()
+    except:
+        print('API MUST BE DOWN')
+        return None
+    return new_token
+
+
 def search_series_list(series_name):
-    token = get_new_token()
+    token = get_token()
     headers = {"Content-Type": "application/json", "Accept": "application/json", 'Authorization': 'Bearer '+token, "User-agent": "Mozilla/5.0"}
     url = 'https://api.thetvdb.com/search/series?name=' + quote(series_name)
     try:
@@ -30,7 +41,7 @@ def search_series_list(series_name):
 
 
 def get_series_with_id(tvdbID):
-    token = get_new_token()
+    token = get_token()
     headers = {"Content-Type": "application/json", "Accept": "application/json", 'Authorization': 'Bearer '+token, "User-agent": "Mozilla/5.0"}
     url = 'https://api.thetvdb.com/series/' + str(tvdbID)
     try:
@@ -51,5 +62,4 @@ def get_series_with_id(tvdbID):
     except Exception:
         return None
 
-
-print(search_series_list("Game of Thrones"))
+# print(search_series_list("Game of Thrones"))
