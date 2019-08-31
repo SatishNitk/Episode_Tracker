@@ -1,12 +1,39 @@
 {% extends "header.html" %}
 
 {% block content %}
-{% for show in shows %}
-{{show.id}}
-{{show.show_name}}
-{{show.Banner}}
 
-        <img src={{show.Banner}}>
 
-{% endfor %}
+
+
+<div class="container-fluid col-xs-12">
+<div class="card-columns">
+  {% for show in shows %}
+<!--   {{show.network}}
+  {{show.overview}}
+  {{show.status_watched}}
+  {{show.running_status}}
+  {{show.first_air}}
+ -->
+  <div class="card">
+      
+      <div class="card-header">
+        <p class="card-text text-xs-center">{{show.id}}: <small>{{show.show_name}}</small></p>
+      </div>
+      
+      <a href=''>
+        <img class="card-img-top img-fluid" src="{{show.Banner}}" alt="{{show.show_name}}">
+      </a>
+      <div class="card-block">
+          <form class='form-inline' action="/add" method="post">{% csrf_token %}
+            <button type="submit" class="btn btn-danger-outline">Add</button>
+            <input type="hidden" name="show_id" value="{{show.show_id}}">
+            <input type="hidden" name="runningStatus" value="{{show.status_watched}}">
+          </form>
+        </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+
 {% endblock %}

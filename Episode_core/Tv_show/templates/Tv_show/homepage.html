@@ -1,0 +1,95 @@
+{% extends "header.html" %}
+{% load static %}
+
+
+
+
+{% block content %}
+
+<style>
+body {
+  font-family: Arial;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+
+  border: 1px solid grey;
+  float: left;
+  margin-left:240px;
+  margin-top:160px;
+
+  width: 50%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+
+  margin-left:0px;
+  margin-top:160px;
+
+  width: 10%;
+  padding: 11px;
+  background: #2196F3;
+  color: white;
+  font-size: 15px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+
+<form action="{% url 'search' %}" method="POST" class="example" >
+  {% csrf_token %}
+  <input type="text" placeholder="Search.." name="search_string">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+
+
+
+
+
+{% if context.show_detail %}
+{{context.show_detail}}
+
+<div class="card-columns">
+<div class="card">
+     <img class="card-img-top img-fluid" src="http://thetvdb.com/banners/{{context.show_datalist.banner}}" alt="Card image cap">
+    <div class="card-block">
+      <h4 class="card-title">{{context.show_datalist.seriesName}}</h4>
+      <p class="card-text">{{context.show_datalist.overview}}</p>
+      <p class="card-text"><small class="text-muted">First aired {{context.show_datalist.firstAired}}</small></p>{{context.show_datalist.id}}
+    </div>
+       <div class="card-block">
+        <form class='form-inline' action="{% url 'add_show' %}" method="post">{% csrf_token %}
+           <button type="submit" class="btn btn-danger-outline">Add</button>
+           <input type="hidden" name="show_id" value="{{context.show_datalist.id}}">
+           <input type="hidden" name="runningStatus" value="{{context.show_datalist.status}}">
+        </form>
+       </div>
+  </div>
+
+</div>
+
+
+{% endif %}
+
+
+
+{% endblock %}
