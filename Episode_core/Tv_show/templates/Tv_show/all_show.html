@@ -1,0 +1,23 @@
+{% extends "header.html" %}
+{% load static %}
+
+
+{% block content %}
+{{all_show}}
+
+<div class="card-columns">
+  {% for show in all_show %}
+    {{show.seriesName}}
+    {{show.banner}}
+
+  <div class="card">
+    <img class="card-img-top img-fluid" src="http://thetvdb.com/banners/{{show.banner}}" alt="Card image cap">
+      <h4 class="card-title">{{show.seriesName}}</h4>
+      <p class="card-text">{{show.overview}}</p>
+      <p class="card-text"><small class="text-muted">First aired {{show.firstAired}}</small></p>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+{% endblock %}
+

@@ -105,4 +105,4 @@ def download_image(url, slug):
     imageFile.close()
     return os.path.join('media', os.path.basename(slug))
 
-# print(get_all_episodes("121361", 1))
+# print(search_series_list("After Life"))

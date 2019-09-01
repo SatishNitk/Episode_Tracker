@@ -22,7 +22,7 @@ form.example input[type=text] {
   border: 1px solid grey;
   float: left;
   margin-left:240px;
-  margin-top:160px;
+  margin-top:100px;
 
   width: 50%;
   background: #f1f1f1;
@@ -32,10 +32,10 @@ form.example button {
   float: left;
 
   margin-left:0px;
-  margin-top:160px;
+  margin-top:100px;
 
-  width: 10%;
-  padding: 11px;
+  width: 8%;
+  padding: 12px;
   background: #2196F3;
   color: white;
   font-size: 15px;
@@ -66,15 +66,15 @@ form.example::after {
 
 
 {% if context.show_detail %}
-{{context.show_detail}}
-
+<center>
 <div class="card-columns">
-<div class="card">
+<div class="card" style="width:670px; margin-left:280px;
+  margin-top:30px;">
      <img class="card-img-top img-fluid" src="http://thetvdb.com/banners/{{context.show_datalist.banner}}" alt="Card image cap">
     <div class="card-block">
       <h4 class="card-title">{{context.show_datalist.seriesName}}</h4>
       <p class="card-text">{{context.show_datalist.overview}}</p>
-      <p class="card-text"><small class="text-muted">First aired {{context.show_datalist.firstAired}}</small></p>{{context.show_datalist.id}}
+      <p class="card-text"><small class="text-muted">Show id {{context.show_datalist.id}}</small></p>
     </div>
        <div class="card-block">
         <form class='form-inline' action="{% url 'add_show' %}" method="post">{% csrf_token %}
@@ -87,7 +87,7 @@ form.example::after {
 
 </div>
 
-
+</center>
 {% endif %}
 
 

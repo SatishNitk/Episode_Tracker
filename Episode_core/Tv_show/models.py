@@ -2,9 +2,12 @@ from django.db import models
 from datetime import datetime
 from django.utils import timezone
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 
 class Show(models.Model):
+    user = models.ManyToManyField(User)
+    # user = models.ForeignKey(User, on_delete= models.CASCADE)
     tvdbID = models.CharField(max_length=25)
     showName = models.CharField(max_length=50)
     overview = models.CharField(max_length=100)
@@ -23,7 +26,7 @@ class Show(models.Model):
     def __str__(self):
         return self.showName
 
-    def add_show(self, show_data, running_status):
+    def add_show(self, show_data, running_status, user):
         """ """
         self.tvdbID = show_data['tvdbID']
         self.showName = show_data['seriesName']
@@ -38,15 +41,14 @@ class Show(models.Model):
         self.slug = slugify(self.showName)
         print(show_data)
         try:
-            print(show_data['firstAired'])
-            if show_data['firstAired']:
-                print("comig---")
-                self.firstAired = datetime.strptime(str(show_data['firstAired']), '%Y-%m-%d').date()
-            else:
-                print("cmfffff fjfnfknk")
+            self.firstAired = datetime.strptime(str(show_data['firstAired']), '%Y-%m-%d').date()
         except Exception:
             pass
+        # self.user = user
+
         self.save()
+        self.user.add(user)
+
 
 
 class Season(models.Model):
@@ -81,8 +83,10 @@ class Episode(models.Model):
         self.season = season
         self.episodeName = season_data['episodeName']
         self.episodeNumber = season_data['number']
-        self.firstAired = season_data['firstAired']
         self.tvdbID = season_data['tvdbID']
         self.overview = season_data['overview']
-
+        try:
+            self.firstAired = datetime.strptime(str(season_data['firstAired']), '%Y-%m-%d').date()    
+        except Exception:
+            pass
         self.save()
