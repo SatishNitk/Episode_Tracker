@@ -1,5 +1,6 @@
 import json
 import requests
+import os
 from django.utils import six
 if six.PY2:
     from urllib import quote
@@ -62,9 +63,10 @@ def get_series_with_id(tvdbID):
     except Exception:
         return None
 
+
 def get_season_episode_list(tvdbID, number):
     token = get_token()
-    headers={"Content-Type":"application/json","Accept": "application/json",'Authorization' : 'Bearer '+token, "User-agent": "Mozilla/5.0"}
+    headers = {"Content-Type": "application/json", "Accept": "application/json", 'Authorization': 'Bearer '+token, "User-agent": "Mozilla/5.0"}
     url = 'https://api.thetvdb.com/series/' + str(tvdbID) + '/episodes/query?airedSeason=' + str(number)
     try:
         json_r = requests.get(url, headers=headers).json()
@@ -79,19 +81,20 @@ def get_season_episode_list(tvdbID, number):
             episode_data['overview'] = episode['overview']
             season_data.append(episode_data)
         return season_data
-    except:
+    except Exception:
         return None
 
 
-def get_all_episodes(tvdbID,start_season):
+def get_all_episodes(tvdbID, start_season):
     show = {}
-    for i in range(start_season,100):
+    for i in range(start_season, 100):
         season_data = get_season_episode_list(tvdbID, i)
         if season_data:
             show['Season'+str(i)] = season_data
         else:
             break
     return show
+
 
 def download_image(url, slug):
     r = requests.get(url)

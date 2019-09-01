@@ -18,7 +18,7 @@ class Show(models.Model):
     genreList = models.TextField(null=True, blank=True)
     lastUpdated = models.DateTimeField(null=True, blank=True)
     banner = models.CharField(max_length=100)
-    slug = models.SlugField(null = True, blank = True)
+    slug = models.SlugField(null=True, blank=True)
 
     def __str__(self):
         return self.showName
@@ -34,7 +34,7 @@ class Show(models.Model):
         self.network = show_data['network']
         self.genreList = show_data['genre']
         self.lastUpdated = timezone.now()
-        self.banner =  'http://thetvdb.com/banners/' + show_data['banner']
+        self.banner = 'http://thetvdb.com/banners/' + show_data['banner']
         self.slug = slugify(self.showName)
         print(show_data)
         try:
@@ -44,7 +44,7 @@ class Show(models.Model):
                 self.firstAired = datetime.strptime(str(show_data['firstAired']), '%Y-%m-%d').date()
             else:
                 print("cmfffff fjfnfknk")
-        except:
+        except Exception:
             pass
         self.save()
 

@@ -52,6 +52,7 @@ class Add_show_view(View):
 
         return HttpResponse("all saved")
 
+
 class SearchPage_view(View):
     """ """
     def post(self, requests):
@@ -63,10 +64,9 @@ class SearchPage_view(View):
             context = {}
             context['show_detail'] = True
             context['show_datalist'] = show_datalist[0]
-            return render(requests, "Tv_show/homepage.html", {'context':context})
+            return render(requests, "Tv_show/homepage.html", {'context': context})
     def get(self, requests):
         """ """
         context = {}
         context['show_detail'] = False
-        return render(requests, "Tv_show/homepage.html", {'context':context})
-
+        return render(requests, "Tv_show/homepage.html", {'context': context})
